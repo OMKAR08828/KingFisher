@@ -10,7 +10,7 @@ Background:
  | Beetroot |
  Then Cart should have 5 items
 
-Scenario: Add vegatables to cart and checkout with valid promo
+Scenario: Add vegetables to cart and checkout with valid promo
  When User proceed to checkout and apply promo "rahulshettyacademy"
  Then Discount should be applied and order placed successfully
 
