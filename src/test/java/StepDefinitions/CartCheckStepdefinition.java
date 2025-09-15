@@ -1,29 +1,19 @@
 package StepDefinitions;
 
-import utils.DriverManager;
-import java.sql.SQLException;
-import java.time.Duration;
 import java.util.List;
 
-import org.openqa.selenium.By;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Pages.CartPage;
 import Pages.ProductPage;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import config.ConfigReader;
-
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import jdk.internal.org.jline.utils.Log;
+import utils.DriverManager;
 
 public class CartCheckStepdefinition {
 
@@ -40,9 +30,10 @@ WebDriver driver=DriverManager.getDriver();
 	}
 
 	@Test
-	@When("User adds {string} , {string}, {string},{string},{string} to cart")
-	public void User_adds_products_to_cart(String p1, String p2, String p3, String p4, String p5) {
-		ProductPage.addToCart(p1, p2, p3, p4, p5);
+	 @When("User adds following items to cart")
+    public void user_adds_following_items_to_cart(DataTable dataTable) {
+       
+		ProductPage.addToCart(dataTable);
 
 		log.info("Products added to cart");
 	}

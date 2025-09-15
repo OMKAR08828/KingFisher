@@ -14,7 +14,7 @@ import utils.DriverManager;
 public class CartPage {
 
 	static WebDriver driver = DriverManager.getDriver();
-
+	static int sum = 0;
 	static By cartButton = By.cssSelector("img[alt='Cart']");
 	static By checkOutBtn = By.xpath("//button[text()='PROCEED TO CHECKOUT']");
 	static By promoBox = By.className("promoCode");
@@ -24,11 +24,30 @@ public class CartPage {
 	static By proceedBtn = By.xpath("//button[text()='Proceed']");
 
 	public static void verifyCartItems(int n) {
+
 		driver.findElement(cartButton).click();
 		driver.findElement(checkOutBtn).click();
 
 		List<WebElement> cartItems = driver.findElements(By.xpath("//*[@id=\"productCartTables\"]/tbody/tr"));
 		Assert.assertEquals(n, cartItems.size());
+		System.out.println(cartItems);
+		
+		List<WebElement> priceCells = driver.findElements(By.xpath("//table/tbody/tr/td[4]"));
+
+        double sum = 0;
+
+        for (WebElement priceCell : priceCells) {
+            String text = priceCell.getText();  
+            // Remove non digits if any
+            text = text.replaceAll("[^0-9]", "");
+            if (!text.isEmpty()) {
+                sum += Double.parseDouble(text);
+            }
+        }
+        System.out.println(sum);
+
+		String cartPrice = driver.findElement(By.className("discountAmt")).getText();
+		Assert.assertEquals(sum, Integer.parseInt(cartPrice));
 
 	}
 
@@ -77,12 +96,8 @@ public class CartPage {
 		Assert.assertTrue(promoMsg.getText().contains("Invalid code ..!"));
 
 	}
-	
-	
-	
-	
-	public void test1()
-	{
-		
+
+	public void test1() {
+
 	}
 }
