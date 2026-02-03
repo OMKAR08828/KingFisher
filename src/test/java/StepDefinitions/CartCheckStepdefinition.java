@@ -26,7 +26,7 @@ WebDriver driver=DriverManager.getDriver();
 		DriverManager.implicitWait();
 		driver.get("https://rahulshettyacademy.com/seleniumPractise/#/");
 		driver.manage().window().maximize();
-		log.info("User is on product page");
+		log.info("User landed product page ");
 	}
 
 	@Test
